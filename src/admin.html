@@ -5,38 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>管理页面</title>
-    <style>
-        #container{
-            padding: 50px 80px;
-            border:2px dashed #ddd;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width:200px;
-            border-radius:20px;
-        }
-        #pickfiles{
-            padding:5px 10px;
-            border:1px solid black;
-            border-radius:4px;
-        }
-        #pickfiles:hover{
-            color: #333;
-            background-color: #d4d4d4;
-            border-color: #8c8c8c;
-        }
-        p{
-            margin:8px 0;
-        }
-    </style>
+    <link rel="stylesheet" href="./css/default.css">
 </head>
 <body>
-<div id="container">
-    <span id="pickfiles">点击或拖曳上传</span>
-    <p>文件大小不能超过40MB</p>
+<div class="page">
+    <aside>
+        <div class="newSong">
+            新建歌曲
+        </div>
+        <ul class="songList">
+            <li class="active">歌曲1</li>
+            <li>歌曲2</li>
+            <li>歌曲3</li>
+            <li>歌曲4</li>
+            <li>歌曲5</li>
+            <li>歌曲6</li>
+            <li>歌曲7</li>
+            <li>歌曲8</li>
+        </ul>
+        <div class="uploadArea">
+            <div id="container">
+                <span id="pickfiles">点击或拖曳上传</span>
+                <p>文件大小不能超过40MB</p>
+            </div>
+            <div id="uploadStatus"></div>
+        </div>
+    </aside>
+    <main>
+        <form class="form">
+            <div class="row">
+                <label>歌名
+                    <input type="text">
+                </label>
+            </div>
+            <div class="row">
+                <label>歌手
+                    <input type="text">
+                </label>
+            </div>
+            <div class="row">
+                <label>外链
+                    <input type="text">
+                </label>
+            </div>
+            <div class="row">
+                <button type="submit">保存</button>
+            </div>
+        </form>
+    </main>
 </div>
-<div id="uploadStatus"></div>
+
+
+
+
 
 
 <script src="../node_modules/qiniu-js/dist/qiniu.min.js"></script>
@@ -50,7 +71,7 @@
         uptoken_url: 'http://localhost:8080/uptoken', //若未指定uptoken_url,则必须指定 uptoken ,uptoken由其他程序生成
         // unique_names: true, // 默认 false，key为文件名。若开启该选项，SDK为自动生成上传成功后的key（文件名）。
         // save_key: true,   // 默认 false。若在服务端生成uptoken的上传策略中指定了 `sava_key`，则开启，SDK会忽略对key的处理
-        domain: 'http://qiniu-plupload.qiniudn.com/',   //bucket 域名，下载资源时用到，**必需**
+        domain: 'p5kug22vf.bkt.clouddn.com',   //bucket 域名，下载资源时用到，**必需**
         //ozp6nmbl9.bkt.clouddn.com 仅示例。为七牛提供的测试域名
 
         get_new_uptoken: false,  //设置上传文件的时候是否每次都重新获取新的token
@@ -81,9 +102,10 @@
                 //  }
                 // 参考http://developer.qiniu.com/docs/v6/api/overview/up/response/simple-response.html
 
-                // var domain = up.getOption('domain');
-                // var res = parseJSON(info.response);
-                // var sourceLink = domain + res.key; 获取上传成功后的文件的Url
+                var domain = up.getOption('domain');
+                var response = JSON.parse(info.response);
+                var sourceLink = 'http://'+domain +'/' +encodeURIComponent(response.key); //获取上传成功后的文件的Url
+                console.log('sourceLink:  ' +sourceLink)
             },
             'Error': function(up, err, errTip) {
                 //上传出错时,处理相关的事情

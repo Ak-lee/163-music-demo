@@ -1,0 +1,78 @@
+*{margin:0;padding:0;}
+*{box-sizing: border-box}
+*::after{box-sizing: border-box}
+*::before{box-sizing: border-box}
+ul,ol{list-style: none;}
+a{text-decoration: none;color:inherit;}
+
+body{
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/*layout*/
+.page{
+    display:flex;
+    flex-direction: row;
+    height: 100vh;
+}
+.page > aside{
+    width:220px;
+    display: flex;
+    flex-direction: column;
+}
+.page>main{
+    flex-grow:1;
+    border:1px solid red;
+}
+
+.page>aside >.newSong{
+    text-align: center;
+    padding: 10px;
+}
+.page>aside >.newSong.active{
+    background:#d4d4d4;
+}
+.page>aside >.songList{
+    text-align-last: left;
+    border-top:1px solid #999;
+    flex-grow: 1;
+}
+.page>aside >.songList>li{
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+}
+.page>aside >.songList>li.active{
+    background:#d4d4d4;
+}
+
+.page>aside >.uploadArea{
+    margin:10px;
+}
+
+
+.page>aside #container{
+    padding: 20px;
+    border:2px dashed #ddd;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width:200px;
+    border-radius:8px;
+}
+.page>aside #pickfiles{
+    padding:5px 10px;
+    border:1px solid black;
+    border-radius:4px;
+    cursor: pointer;
+}
+.page>aside #pickfiles:hover{
+    color: #333;
+    background-color: #d4d4d4;
+    border-color: #8c8c8c;
+    cursor: pointer;
+}
+.page>aside p{
+    margin:8px 0;
+}
