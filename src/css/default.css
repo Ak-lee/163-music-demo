@@ -7,7 +7,7 @@ a{text-decoration: none;color:inherit;}
 input{font:inherit;}
 
 body{
-    font-size: 12px;
+    font-size: 16px;
     line-height: 1.5;
 }
 
@@ -21,11 +21,15 @@ body{
     width:220px;
     display: flex;
     flex-direction: column;
+    background:#191818;
+    color: #ddd;
+    font-family: "PingFang SC", "Lantinghei SC", "Helvetica Neue", "Microsoft Yahei", "Hiragino Sans GB", "Microsoft Sans Serif", "WenQuanYi Micro Hei", sans;
+    font-weight: bold;
 }
 .page>main{
     flex-grow:1;
-    background: #d4d4d4;
     padding-left: 20px;
+    background: lightgoldenrodyellow;
 }
 
 .page>aside >.newSong{
@@ -33,20 +37,25 @@ body{
     padding: 10px;
 }
 .page>aside >.newSong.active{
-    background:#d4d4d4;
+    background: #1f8dd6;
 }
 .page>aside >.songList{
     text-align-last: left;
-    border-top:1px solid #999;
+    border-top:1px solid #333;
     flex-grow: 1;
 }
 .page>aside >.songList>li{
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #333;
     padding: 10px;
 }
-.page>aside >.songList>li.active{
-    background:#d4d4d4;
+.page>aside >.newSong:hover,
+.page>aside >.songList>li:hover{
+    background:#333;
 }
+.page>aside >.songList>li.active{
+    background: #1f8dd6;
+}
+
 
 .page>aside >.uploadArea{
     margin:10px;
@@ -68,11 +77,10 @@ body{
     border:1px solid black;
     border-radius:4px;
     cursor: pointer;
+    background:#0078e7;
 }
 .page>aside #pickfiles:hover{
-    color: #333;
-    background-color: #d4d4d4;
-    border-color: #8c8c8c;
+    background-image: linear-gradient(transparent,rgba(0,0,0,.05) 40%,rgba(0,0,0,.1));
     cursor: pointer;
 }
 .page>aside p{
@@ -82,7 +90,7 @@ body{
 
 /*main*/
 .form{
-    font-size: 14px;
+    font-size: 16px;
 }
 .form > .row{
     margin:20px 0;
