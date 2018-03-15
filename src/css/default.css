@@ -39,20 +39,22 @@ body{
 .page>aside >.newSong.active{
     background: #1f8dd6;
 }
-.page>aside >.songList{
-    text-align-last: left;
-    border-top:1px solid #333;
+.page>aside #songList-container{
     flex-grow: 1;
 }
-.page>aside >.songList>li{
+.page>aside .songList{
+    text-align-last: left;
+    border-top:1px solid #333;
+}
+.page>aside .songList>li{
     border-bottom: 1px solid #333;
     padding: 10px;
 }
 .page>aside >.newSong:hover,
-.page>aside >.songList>li:hover{
+.page>aside .songList>li:hover{
     background:#333;
 }
-.page>aside >.songList>li.active{
+.page>aside .songList>li.active{
     background: #1f8dd6;
 }
 
@@ -119,7 +121,6 @@ body{
     height: 30px;
     padding-left:10px;
     padding-right: 10px;
-    border:2px solid #ddd;
     border-radius: 5px;
     background: rgb(28, 184, 65);
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
