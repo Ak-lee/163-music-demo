@@ -30,11 +30,15 @@ body{
     flex-grow:1;
     padding-left: 20px;
     background: lightgoldenrodyellow;
+    height: 100vh;
 }
 
 .page>aside >.newSong{
     text-align: center;
     padding: 10px;
+}
+.page>aside >.newSong:hover{
+    background:#333;
 }
 .page>aside >.newSong.active{
     background: #1f8dd6;
@@ -50,7 +54,7 @@ body{
     border-bottom: 1px solid #333;
     padding: 10px;
 }
-.page>aside >.newSong:hover,
+
 .page>aside .songList>li:hover{
     background:#333;
 }
