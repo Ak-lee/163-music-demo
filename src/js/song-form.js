@@ -6,15 +6,15 @@
         <form class="form">
             <div class="row">
                 <label>歌名</label>
-                <input name="name" type="text" value="__key__">
+                <input name="name" type="text" value="__name__">
             </div>
             <div class="row">
                 <label>歌手</label>
-                <input name="singer" type="text">
+                <input name="singer" type="text" value="__singer__">
             </div>
             <div class="row">
                 <label>外链</label>
-                <input name="url" type="text" value="__link__">
+                <input name="url" type="text" value="__url__">
 
             </div>
             <div class="row actions">
@@ -22,8 +22,8 @@
             </div>
         </form>
         `,
-        render(data={}){
-            let placeholders=['key','link']
+        render(data={}){ // 如果没有传data,就把data赋值为空。这是ES6语法
+            let placeholders=['name','singer','url','id']
             let html = this.template;
             placeholders.map((string)=>{
                 html =html.replace(`__${string}__`,data[string] || '')
@@ -32,6 +32,9 @@
         },
         init(){
             this.$el=$(this.el)
+        },
+        reset(){
+            this.render({})
         }
     };
 
@@ -43,6 +46,7 @@
             id:''
         },
         create(data){
+            // 函数功能：上传表单数据
             // 声明类型
             var Song = AV.Object.extend('Song');
             // 新建对象
@@ -52,9 +56,14 @@
             // 设置优先级
             song.set('singer',data.singer);
             song.set('url',data.url);
-            song.save().then((newSong)=>{
-                console.log(newSong);
-            },  (error)=>{
+            return song.save().then((newSong)=>{    // return 一个 Promise
+                // 让 model 拿到最新的数据，毕竟我们上传时不知道leancloud后台会给出的id
+                let {id,attributes}=newSong;
+                Object.assign(this.data,{
+                    id,
+                    ...attributes
+                })
+            },(error)=>{
                 console.error(error);
             });
         }
@@ -69,7 +78,8 @@
           this.view.render(this.model.data)
           this.bindEvents()
           window.eventHub.on('upload',(data)=>{
-              this.view.render(data)
+              this.model.data = data
+              this.view.render(this.model.data)
         })
         },
         bindEvents(){
@@ -77,10 +87,19 @@
                 e.preventDefault();
                 let needs = 'name singer url'.split(' ');
                 let data =[];
+                // 拿到表单数据
                 needs.map((string)=>{
                     data[string]=this.view.$el.find(`input[name=${string}]`).val();
                 })
-                this.model.create(data);
+                this.model.create(data)
+                    .then(()=>{
+                        this.view.reset();
+                        // 不要直接把一个对象直接传个另一个模块。应该做一下深拷贝,实现解耦
+                        // 错误示例 window.eventHub.emit('create',this.model.data)
+                        let string=JSON.stringify(this.model.data)
+                        let object=JSON.parse(string)
+                        window.eventHub.emit("create",object)
+                    })
             })
         }
     };
