@@ -28,6 +28,18 @@
     let model={
         data:{
             songs:[]
+        },
+        find(){
+            var query = new AV.Query('Song')
+            console.log('in find')
+            return query.find().then((songs)=>{
+                songs.map(
+                    (songItem)=>{
+                        this.data.songs.push({id:songItem.id, ...songItem.attributes});
+                    }
+                );
+                return this.data
+            })
         }
     };
     let controller = {
@@ -41,6 +53,9 @@
             window.eventHub.on("create",(songData)=>{
                this.model.data.songs.push(songData);
                this.view.render(this.model.data)
+            });
+            this.model.find().then(()=>{
+                this.view.render(this.model.data)
             })
         }
     };
