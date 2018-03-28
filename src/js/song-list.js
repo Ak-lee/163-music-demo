@@ -12,6 +12,7 @@
             let liList = songs.map((song)=>{
                 let li=$('<li></li>')   // jQuery 创建一个元素的方法
                 li.text(song.name)      // jQuery 修改一个元素文本的方法、
+                li.attr('song-id',song.id);
                 return li
             })
             $el.find('ul').empty()
@@ -22,6 +23,11 @@
         },
         clearActive(){
             $(this.el).find('.active').removeClass('active')
+        },
+        activeItem(li){
+            let $li=$(li);
+            $li.addClass('active')
+                .siblings(".active").removeClass('active');
         }
 
     };
@@ -31,7 +37,6 @@
         },
         find(){
             var query = new AV.Query('Song')
-            console.log('in find')
             return query.find().then((songs)=>{
                 songs.map(
                     (songItem)=>{
@@ -47,19 +52,32 @@
             this.view = view;
             this.model=model;
             this.view.render(this.model.data);
+            this.getAllSongs();
+            this.bindEvents()
+            this.bindEvntHub();
+        },
+        bindEvents(){
+            $(this.view.el).on('click','li',(e)=>{
+                this.view.activeItem(e.currentTarget);
+                let songId = e.currentTarget.getAttribute("song-id")
+                window.eventHub.emit('select',{id:songId})
+            })
+
+        },
+        bindEvntHub(){
             window.eventHub.on("upload",()=>{
                 this.view.clearActive()
             });
             window.eventHub.on("create",(songData)=>{
-               this.model.data.songs.push(songData);
-               this.view.render(this.model.data)
+                this.model.data.songs.push(songData);
+                this.view.render(this.model.data)
             });
-            this.model.find().then(()=>{
+        },
+        getAllSongs(){
+            return this.model.find().then(()=>{
                 this.view.render(this.model.data)
             })
         }
     };
     controller.init(view,model);
-
-
 }
