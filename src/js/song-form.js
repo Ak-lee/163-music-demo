@@ -2,7 +2,6 @@
     let view={
         el:".page>main",
         template:`
-        <h1>新建歌曲</h1>
         <form class="form">
             <div class="row">
                 <label>歌名</label>
@@ -28,7 +27,12 @@
             placeholders.map((string)=>{
                 html =html.replace(`__${string}__`,data[string] || '')
             })
-            $(this.el).html(html)
+            $(this.el).html(html);
+            if(!data.id){
+                $(this.el).prepend('<h1>新建歌曲</h1>')
+            }else{
+                $(this.el).prepend('<h1>编辑歌曲</h1>')
+            }
         },
         init(){
             this.$el=$(this.el)
@@ -39,12 +43,6 @@
     };
 
     let model={
-        data:{
-            name:'',
-            singer:'',
-            url:'',
-            id:''
-        },
         create(data){
             // 函数功能：上传表单数据
             // 声明类型
@@ -66,6 +64,14 @@
             },(error)=>{
                 console.error(error);
             });
+        },
+        reset(){
+            this.data={
+                name:'',
+                singer:'',
+                url:'',
+                id:''
+            }
         }
     };
     let controller = {
@@ -74,18 +80,27 @@
         init(view,model){
           this.view = view;
           this.model = model;
+          this.model.reset();
           this.view.init();
           this.view.render(this.model.data)
           this.bindEvents()
-          window.eventHub.on('upload',(data)=>{
-              this.model.data = data
-              this.view.render(this.model.data)
-          });
-          window.eventHub.on('select',(data)=>{
-              this.model.data=data;
-              this.view.render(this.model.data)
-          })
+          this.bindEvntHub();
 
+        },
+        bindEvntHub(){
+            window.eventHub.on('upload',(data)=>{
+                this.model.data = data
+                this.view.render(this.model.data)
+            });
+            window.eventHub.on('select',(data)=>{
+                this.model.data=data;
+                this.view.render(this.model.data)
+            });
+            window.eventHub.on('new',()=>{
+                this.model.reset();
+                this.view.render(this.model.data)
+
+            })
         },
         bindEvents(){
             this.view.$el.on('submit','form',(e)=>{
