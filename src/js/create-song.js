@@ -20,8 +20,6 @@
                 this.active();
             })
             window.eventHub.on('select',(data)=>{
-                console.log('新建歌曲模块拿到了歌曲id')
-                console.log(data.id);
                 this.deactive()
             })
 
