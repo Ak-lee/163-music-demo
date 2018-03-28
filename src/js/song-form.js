@@ -88,18 +88,17 @@
 
         },
         bindEvntHub(){
-            window.eventHub.on('upload',(data)=>{
-                this.model.data = data
-                this.view.render(this.model.data)
-            });
             window.eventHub.on('select',(data)=>{
                 this.model.data=data;
                 this.view.render(this.model.data)
             });
-            window.eventHub.on('new',()=>{
-                this.model.reset();
+            window.eventHub.on('new',(data)=>{
+                if(this.model.data.id){
+                    this.model.reset();
+                }else{
+                    Object.assign(this.model.data,data)
+                }
                 this.view.render(this.model.data)
-
             })
         },
         bindEvents(){

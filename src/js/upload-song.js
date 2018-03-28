@@ -30,6 +30,7 @@
                 auto_start: true,                 //选择文件后自动上传，若关闭需要自己绑定事件触发上传
                 init: {
                     'FilesAdded': function(up, files) {
+                        window.eventHub.emit('new')
                         plupload.each(files, function(file) {
                             // 文件添加进队列后,处理相关的事情
                         });
@@ -52,7 +53,7 @@
                         var domain = up.getOption('domain');
                         var response = JSON.parse(info.response);
                         var sourceLink = 'http://'+domain +'/' +encodeURIComponent(response.key); //获取上传成功后的文件的Url
-                        window.eventHub.emit('upload',{
+                        window.eventHub.emit('new',{
                             url:sourceLink,
                             name:response.key
                         })
