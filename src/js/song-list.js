@@ -9,11 +9,15 @@
             let $el=$(this.el)
             $el.html(this.template)
             let songs =data.songs
+            let selectedSongId=data.selectedSongId;
             let liList = songs.map((song)=>{
-                let li=$('<li></li>')   // jQuery 创建一个元素的方法
-                li.text(song.name)      // jQuery 修改一个元素文本的方法、
-                li.attr('song-id',song.id);
-                return li
+                let $li=$('<li></li>')   // jQuery 创建一个元素的方法
+                $li.text(song.name)      // jQuery 修改一个元素文本的方法、
+                $li.attr('song-id',song.id);
+                if(song.id===selectedSongId){
+                    $li.addClass("active");
+                }
+                return $li
             })
             $el.find('ul').empty()
             liList.map((domLi)=>{
@@ -23,17 +27,13 @@
         },
         clearActive(){
             $(this.el).find('.active').removeClass('active')
-        },
-        activeItem(li){
-            let $li=$(li);
-            $li.addClass('active')
-                .siblings(".active").removeClass('active');
         }
 
     };
     let model={
         data:{
-            songs:[]
+            songs:[],
+            selectedSongId:null
         },
         find(){
             var query = new AV.Query('Song')
@@ -54,12 +54,13 @@
             this.view.render(this.model.data);
             this.getAllSongs();
             this.bindEvents()
-            this.bindEvntHub();
+            this.bindEventHub();
         },
         bindEvents(){
             $(this.view.el).on('click','li',(e)=>{
-                this.view.activeItem(e.currentTarget);
                 let songId = e.currentTarget.getAttribute("song-id")
+                this.model.data.selectedSongId=songId
+                this.view.render(this.model.data)
                 let data={};
                 let songs = this.model.data.songs
                 for (let i=0;i<songs.length;i++){
@@ -72,7 +73,7 @@
             })
 
         },
-        bindEvntHub(){
+        bindEventHub(){
             window.eventHub.on("new",()=>{
                 this.view.clearActive()
             });
