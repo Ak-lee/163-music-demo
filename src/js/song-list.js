@@ -89,6 +89,15 @@
                         this.view.render(this.model.data)
                     }
                 }
+            });
+            window.eventHub.on('delete',(data)=>{
+                let songs=this.model.data.songs
+                for(let i=0; i<songs.length;i++){
+                    if(songs[i].id===data.id){
+                        this.model.data.songs.splice(i,1)
+                        this.view.render(this.model.data)
+                    }
+                }
             })
         },
         getAllSongs(){

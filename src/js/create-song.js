@@ -24,7 +24,8 @@
             });
             $(this.view.el).on('click',()=>{
                 window.eventHub.emit('new')
-            })
+            });
+
         },
         active(){
             $(this.view.el).addClass('active');

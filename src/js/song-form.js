@@ -16,7 +16,7 @@
                 <input name="url" type="text" value="__url__">
 
             </div>
-            <div class="row actions">
+            <div id="submit-btn" class="row actions">
                 <button type="submit">保存</button>
             </div>
         </form>
@@ -32,6 +32,7 @@
                 $(this.el).prepend('<h1>新建歌曲</h1>')
             }else{
                 $(this.el).prepend('<h1>编辑歌曲</h1>')
+                $('#submit-btn').append('<button id="btn-delete"">删除</button>')
             }
         },
         init(){
@@ -88,6 +89,15 @@
             },(error)=>{
                 console.error(error);
             });
+        },
+        delete(){
+            var song = AV.Object.createWithoutData('Song', this.data.id);
+            return song.destroy().then((data)=>{
+                this.reset()
+                return data;
+            },(error)=>{
+                console.error(error);
+            })
         }
     };
     let controller = {
@@ -115,6 +125,23 @@
                     Object.assign(this.model.data,data)
                 }
                 this.view.render(this.model.data)
+            })
+        },
+        bindEvents(){
+            this.view.$el.on('submit','form',(e)=>{
+                e.preventDefault();
+               if(this.model.data.id){
+                   this.update()
+               }else{
+                   this.create()
+               }
+            });
+            $(this.view.el).on('click','#btn-delete',()=> {
+                var oldData = JSON.parse(JSON.stringify(this.model.data))   // 需要深拷贝
+                this.model.delete().then(() => {
+                    window.eventHub.emit('new')
+                    window.eventHub.emit('delete',oldData)
+                })
             })
         },
         create(){
@@ -147,18 +174,6 @@
                     let object=JSON.parse(string)
                     window.eventHub.emit("update",object)
                 })
-
-
-        },
-        bindEvents(){
-            this.view.$el.on('submit','form',(e)=>{
-                e.preventDefault();
-               if(this.model.data.id){
-                   this.update()
-               }else{
-                   this.create()
-               }
-            })
         }
     };
     controller.init(view,model);

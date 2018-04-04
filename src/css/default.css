@@ -45,6 +45,7 @@ body{
 }
 .page>aside #songList-container{
     flex-grow: 1;
+    overflow: auto;
 }
 .page>aside .songList{
     text-align-last: left;
@@ -120,7 +121,7 @@ body{
 }
 .form input[type="button"],
 .form input[type="submit"],
-.form button{
+button{
     color: white;
     height: 30px;
     padding-left:10px;
@@ -131,8 +132,11 @@ body{
 }
 .form input[type="button"]:hover,
 .form input[type="submit"]:hover,
-.form button:hover{
+button:hover{
     background-image: linear-gradient(transparent,rgba(0,0,0,.05) 40%,rgba(0,0,0,.1));
+}
+button{
+    margin-left:10px;
 }
 .page > main{
     padding-top: 20px;
