@@ -149,7 +149,9 @@ section.latestSongs > ol.songList>li p{
     color:rgb(136,136,136);
     font-size: 13px;
 }
-
+section.latestSongs > ol.songList>li p>svg{
+    fill: #FE672E;
+}
 section.latestSongs > ol.songList .icon-wrapper{
     padding:0 10px;
 }
