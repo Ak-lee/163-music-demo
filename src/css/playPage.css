@@ -1,0 +1,107 @@
+*{margin:0;padding:0;}
+*{box-sizing: border-box;}
+*::after{box-sizing: border-box;}
+*::before{box-sizing: border-box;}
+a{color: inherit; text-decoration: none;}
+ul,ol{list-style: none;}
+h1,h2,h3,h4,h5,h6{ font-weight: normal; }
+.icon {
+    width: 1em; height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+}
+
+body{
+    background:black;
+    color:white;
+}
+@keyframes circle{
+    0% {transform: rotate(0deg); }
+    100% {transform: rotate(360deg); }
+}
+#page{
+    height:100vh;
+    overflow:hidden;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+#page>.logo{
+    position:fixed;
+    top:12px;
+    left:10px;
+}
+#page>.logo>img{
+    display: block;
+    width:100px;
+    height:17px;
+}
+
+#page>.discContainer>.pointer{
+    width:24vw;
+    position:absolute;
+    left:45vw;
+    z-index:1;
+}
+#page>.discContainer>.disc{
+    position: relative;
+    width:85vw;
+    height:85vw;
+    margin-top: 18vw;
+}
+.disc>.discImg{
+    position:absolute;
+    width:100%;
+    display:block;
+}
+.disc>.discLight{
+    position:absolute;
+    width:100%;
+    display:block;
+    animation: circle 20s infinite linear;
+}
+.disc >.icon-wrapper{
+    positon:absolute;
+    width:100%;
+    height:100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.disc>.icon-wrapper>.icon-play{
+    fill:white;
+    display: block;
+    width:70px;
+    height:70px;
+}
+#page>.song-description{
+    flex-grow: 1;
+    color: #AEABAC;
+    text-align: center;
+    line-height: 2;
+    margin-top: 20px;
+}
+
+#page > .links{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #D43B32;
+}
+#page > .links > a{
+    width: 38.5vw;
+    margin: 1em;
+    text-align: center;
+    border: 1px solid #D43B32;
+    background: transparent;
+    padding: 1.5vw;
+    color: inherit;
+    text-decoration: none;
+    border-radius: 40px;
+    letter-spacing: 1vw;
+}
+#page > .links > a.main{
+    background: #D43B32;
+    color: white;
+}

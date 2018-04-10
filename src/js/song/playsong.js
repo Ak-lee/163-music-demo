@@ -1,6 +1,6 @@
 {
     let view={
-        el:'#app',
+        el:'#page',
         init(){
             this.$el=$(this.el);
         },
