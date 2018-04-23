@@ -13,7 +13,6 @@ h1,h2,h3,h4,h5,h6{ font-weight: normal; }
 }
 
 body{
-    background:black;
     color:white;
 }
 @keyframes circle{
@@ -26,6 +25,18 @@ body{
     display:flex;
     flex-direction: column;
     align-items: center;
+}
+#page>#background{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size:cover;
+    z-index:-1;
+    filter:blur(15px);
 }
 #page>.logo{
     position:fixed;
@@ -60,6 +71,22 @@ body{
     width:100%;
     display:block;
     animation: circle 20s infinite linear;
+    animation-play-state: paused;
+}
+.disc.playing>.discLight{
+    animation-play-state: running;
+}
+.disc >.cover{
+    width:54vw;
+    position:absolute;
+    top:calc(50% - 27vw);
+    left:calc(50% - 27vw);
+    border-radius: 50%;
+    animation: circle 20s infinite linear;
+    animation-play-state: paused;
+}
+.disc.playing >.cover{
+    animation-play-state: running;
 }
 .disc >.icon-wrapper{
     positon:absolute;
@@ -72,8 +99,12 @@ body{
 .disc>.icon-wrapper>.icon-play{
     fill:white;
     display: block;
-    width:70px;
-    height:70px;
+    width:80px;
+    height:80px;
+    z-index:1;
+}
+.disc.playing>.icon-wrapper>.icon-play{
+    display: none;
 }
 #page>.song-description{
     flex-grow: 1;

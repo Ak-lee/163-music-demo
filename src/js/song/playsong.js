@@ -3,6 +3,27 @@
         el:'#page',
         init(){
             this.$el=$(this.el);
+        },
+        render(data){
+            var {song,status}=data
+            $(this.el).find('#background').css('background-image',`url(${song.cover})`)
+            $(this.el).find('img.cover').attr('src',song.cover)
+            if($(this.el).find('audio').attr('src')!==song.url){
+                $(this.el).find('audio').attr('src',song.url)
+            }
+            if(status === 'playing'){
+                $(this.el).find('.disc').removeClass('pause').addClass('playing')
+                this.play()
+            }else{
+                $(this.el).find('.disc').removeClass('playing').addClass('pause')
+                this.pause()
+            }
+        },
+        play(){
+            $(this.el).find('audio')[0].play()
+        },
+        pause(){
+            $(this.el).find('audio')[0].pause()
         }
     }
     let model={
@@ -11,9 +32,10 @@
                 id:'',
                 name:'',
                 singer:'',
-                url:""
+                url:"",
+                cover:''
             },
-        status:'pause'
+            status:'playing'
         },
         get(id){
             var query = new AV.Query('Song');
@@ -21,8 +43,10 @@
                 this.data.song={id:data.id,
                     name:data.attributes.name,
                     singer:data.attributes.singer,
-                    url:data.attributes.url}
-                return JSON.parse(JSON.stringify(this.data.song))
+                    url:data.attributes.url,
+                    cover:data.attributes.cover
+                }
+                return JSON.parse(JSON.stringify(this.data))
             }, function (error) {
                 // 异常处理
             });
@@ -37,17 +61,20 @@
             let id = this.getSongId()
             this.model.get(id)
                 .then((data)=>{
-                    this.view.render(data)
+                    this.model.data.status==='playing'
+                    this.view.render(this.model.data)
+                    this.view.play()
                 })
             this.bindEvents()
         },
-
         bindEvents(){
-            this.view.$el.on('click','.play',()=>{
-                this.view.play()
+            this.view.$el.on('click','.disc.pause',()=>{
+                this.model.data.status='playing'
+                this.view.render(this.model.data)
             })
-            this.view.$el.on('click','.pause',()=>{
-                this.view.pause()
+            this.view.$el.on('click','.disc.playing',()=>{
+                this.model.data.status='pause'
+                this.view.render(this.model.data)
             })
         },
         getSongId(){
