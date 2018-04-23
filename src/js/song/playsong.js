@@ -3,41 +3,26 @@
         el:'#page',
         init(){
             this.$el=$(this.el);
-        },
-        template:`
-            <audio src="{{url}}"></audio>
-            <div>
-                <button class="play">播放</button>
-                <button class="pause">暂停</button>
-            </div>
-        `,
-        render(data){
-            this.$el.html(this.template.replace('{{url}}',data.url))
-        },
-        play(){
-            let audio = this.$el.find('audio')[0]
-            audio.play()
-        },
-        pause(){
-            let audio = this.$el.find('audio')[0]
-            audio.pause()
         }
     }
     let model={
         data:{
-            id:'',
-            name:'',
-            singer:'',
-            url:""
+            song:{
+                id:'',
+                name:'',
+                singer:'',
+                url:""
+            },
+        status:'pause'
         },
         get(id){
             var query = new AV.Query('Song');
             return query.get(id).then((data)=>{
-                this.data={id:data.id,
+                this.data.song={id:data.id,
                     name:data.attributes.name,
                     singer:data.attributes.singer,
                     url:data.attributes.url}
-                return JSON.parse(JSON.stringify(this.data))
+                return JSON.parse(JSON.stringify(this.data.song))
             }, function (error) {
                 // 异常处理
             });
