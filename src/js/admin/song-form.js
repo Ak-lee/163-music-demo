@@ -192,7 +192,8 @@
         },
         initQiniu(){
             //引入Plupload 、qiniu.js后
-            var uploader = Qiniu.uploader({
+            var Q2 = new QiniuJsSDK();
+            var uploader2 = Q2.uploader({
                 runtimes: 'html5',    //上传模式,依次退化
                 browse_button: $('#uploadCover-container').find('#uploadCover')[0],       //上传选择的点选按钮，**必需**
                 uptoken_url: 'http://localhost:8888/uptoken', //若未指定uptoken_url,则必须指定 uptoken ,uptoken由其他程序生成
