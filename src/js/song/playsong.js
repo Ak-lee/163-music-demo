@@ -9,7 +9,35 @@
             $(this.el).find('#background').css('background-image',`url(${song.cover})`)
             $(this.el).find('img.cover').attr('src',song.cover)
             if($(this.el).find('audio').attr('src')!==song.url){
-                $(this.el).find('audio').attr('src',song.url)
+                let audio= $(this.el).find('audio').attr('src',song.url)
+                audio.on('ended',()=>{
+                    // ended 事件不会冒泡
+                    window.eventHub.emit('songEnd')
+                });
+                audio.on('timeupdate',()=>{
+                    this.showLyrics(audio.get(0).currentTime)
+                })
+                $(this.el).find('.song-description>h1').text(song.name)
+
+                let {lyrics}=song
+                let array = lyrics.split('\n').map((string)=>{
+                    let p = document.createElement('p')
+                    var regex =/\[([\d:.]+)\](.+)/
+                    let matches = string.match(regex)
+                    if(matches){
+                        p.textContent=matches[2];
+                        let time=matches[1]
+                        let parts=time.split(":");
+                        let minutes = parts[0]
+                        let second = parts[1]
+                        let newTime = parseInt(minutes,10)*60+parseFloat(second)
+                        p.setAttribute('data-time',newTime.toString())
+                    }else{
+                        p.textContent=string
+                    }
+                    return p;
+                })
+                $(this.el).find('.lyric>.lines').append(array);
             }
             if(status === 'playing'){
                 $(this.el).find('.disc').removeClass('pause').addClass('playing')
@@ -24,6 +52,28 @@
         },
         pause(){
             $(this.el).find('audio')[0].pause()
+        },
+        showLyrics(time){
+            let allP=$(this.el).find('.song-description>.lyric>.lines>p')
+            let p
+            for(let i = 0; i<allP.length; i++){
+                if(i===allP.length-1){
+                    p=allP[i]
+                    break;
+                }else{
+                    let currentTime = allP.eq(i).attr('data-time')
+                    let nextTime = allP.eq(i+1).attr('data-time')
+                    if(currentTime<=time && time<nextTime){
+                        p=allP[i]
+                        let pHeight =p.getBoundingClientRect().top;
+                        let lineHeight = $(this.el).find('.lyric>.lines')[0].getBoundingClientRect().top;
+                        let height = pHeight - lineHeight;
+                        $(this.el).find('.song-description>.lyric>.lines').css('transform',`translateY(${-height+25}px)`)
+                        break;
+                    }
+                }
+            }
+            $(p).addClass('active').siblings('.active').removeClass('active')
         }
     }
     let model={
@@ -44,7 +94,8 @@
                     name:data.attributes.name,
                     singer:data.attributes.singer,
                     url:data.attributes.url,
-                    cover:data.attributes.cover
+                    cover:data.attributes.cover,
+                    lyrics:data.attributes.lyrics
                 }
                 return JSON.parse(JSON.stringify(this.data))
             }, function (error) {
@@ -76,6 +127,10 @@
                 this.model.data.status='pause'
                 this.view.render(this.model.data)
             })
+            window.eventHub.on('songEnd',()=>{
+                this.model.data.status='pause'
+                this.view.render(this.model.data)
+            })
         },
         getSongId(){
             let search = window.location.search
@@ -97,7 +152,4 @@
         }
     }
     controller.init(view,model)
-
-
-
 }

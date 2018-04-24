@@ -113,7 +113,16 @@ body{
     line-height: 2;
     margin-top: 20px;
 }
-
+#page>.song-description>.lyric{
+    height:72px;
+    overflow: hidden;
+}
+#page>.song-description>.lyric>.lines{
+    transition:transform 0.3s
+}
+#page>.song-description>.lyric>.lines>p.active{
+    color:white;
+}
 #page > .links{
     display: flex;
     justify-content: center;
