@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8ff221e3-7397-439a-a679-b025d49f0ffd" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/playPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/playPage.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/song/playsong.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/song/playsong.js" afterDir="false" />
-    </list>
+    <list default="true" id="8ff221e3-7397-439a-a679-b025d49f0ffd" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -21,8 +17,8 @@
       <file leaf-file-name="playPage.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/css/playPage.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="34" column="15" lean-forward="true" selection-start-line="34" selection-start-column="15" selection-end-line="34" selection-end-column="15" />
+            <state relative-caret-position="160">
+              <caret line="38" column="26" lean-forward="true" selection-start-line="38" selection-start-column="26" selection-end-line="38" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -128,7 +124,7 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="90" />
     <option name="y" value="13" />
     <option name="width" value="1264" />
@@ -274,15 +270,15 @@
       <workItem from="1524469244765" duration="22458000" />
       <workItem from="1524493544417" duration="659000" />
       <workItem from="1524532188471" duration="14982000" />
-      <workItem from="1524558494120" duration="3881000" />
+      <workItem from="1524558494120" duration="4708000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="203200000" />
+    <option name="totallyTimeSpent" value="204027000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49019608" visible="true" weight="0.14806548" />
@@ -551,8 +547,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/css/playPage.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="34" column="15" lean-forward="true" selection-start-line="34" selection-start-column="15" selection-end-line="34" selection-end-column="15" />
+        <state relative-caret-position="160">
+          <caret line="38" column="26" lean-forward="true" selection-start-line="38" selection-start-column="26" selection-end-line="38" selection-end-column="26" />
         </state>
       </provider>
     </entry>
