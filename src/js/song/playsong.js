@@ -7,7 +7,9 @@
         render(data){
             var {song,status}=data
             $(this.el).find('#background').css('background-image',`url(${song.cover})`)
-            $(this.el).find('img.cover').attr('src',song.cover)
+            if(song.cover){
+                $(this.el).find('img.cover').attr('src',song.cover)
+            }
             if($(this.el).find('audio').attr('src')!==song.url){
                 let audio= $(this.el).find('audio').attr('src',song.url)
                 audio.on('ended',()=>{
