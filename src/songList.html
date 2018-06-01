@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>歌单页</title>
+    <link rel="stylesheet" href="./css/songList.css">
+</head>
+
+<body>
+    <section class="playList_header">
+        <div class="head_bg"></div>
+        <div class="plhead_wrap">
+            <div class="plhead_fl">
+                <img class="u-img" src="http://p6qxip14s.bkt.clouddn.com/cover1.webp">
+                <span class="lsthd_icon">
+                    歌单
+                </span>
+                <i class="u-earp lsthd_num">108.2万</i>
+            </div>
+            <div class="plhead_fr">
+                <h2 class="f-thide2 f-brk lsthd_title">我只想做个被宠的小盆友</h2>
+                <div class="lsthd_auth f-thide">
+                    <a class="lsthd_link" href="/m/user?id=419044882">
+                        <div class="u-avatar lsthd_ava">
+                            <img class="u-img" src="http://p1.music.126.net/tWneYxLsxckKHbwYLgKDvQ==/109951163282339814.webp?imageView&amp;thumbnail=60x0&amp;quality=75&amp;tostatic=0&amp;type=webp">
+                            <span class="ava-icon ava-icon-daren"></span>
+                        </div>
+                        周杰伦
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="playList">
+        <h3 class="u-smtitle">歌曲列表</h3>
+        <ol class="songList"></ol>
+    </section>
+    <script src="../vendor/av-min.js"></script>
+    <script src="../vendor/jquery.min.js"></script>
+    <script src="./js/initializers/av.js"></script>
+    <script src="./js/admin/event-hub.js"></script>
+    <script src="./js/songList/songList.js"></script>
+</body>
+
+</html>
