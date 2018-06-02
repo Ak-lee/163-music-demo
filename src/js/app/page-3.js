@@ -142,6 +142,10 @@
                 this.view.styleSwitch('hide')
                 this.view.$el.find(".clear-button").addClass('hide-btn')
             })
+            this.view.$el.find('.song-list').on('click','li',(e)=>{
+                let id = $(e.currentTarget).attr('id')
+                window.location.href=`./song.html?id=${id}`
+            })
         }
     }
     controller.init(view,model)
