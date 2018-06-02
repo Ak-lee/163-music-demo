@@ -68,5 +68,4 @@
                 })
         }
     }
-    controller.init(view, model)
 }

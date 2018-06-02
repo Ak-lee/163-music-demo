@@ -24,8 +24,6 @@
                 </li>
             `)
                 this.$el.find('ol.songList').append($li);
-
-
             })
 
         }

@@ -175,6 +175,7 @@ section.playList_header {
     fill: #AAA;
 }
 section.fixed{
+    margin:5px 0;
     background:white;
     color:white;
     width:100%;
