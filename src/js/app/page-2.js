@@ -11,8 +11,6 @@
             this.$el.removeClass('active')
         },
         render(data) {
-            console.log('data')
-            console.log(data)
             let songs = data.songs;
             songs.map((song,index) => {
                 let $li = $(`
